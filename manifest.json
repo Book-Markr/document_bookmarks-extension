@@ -1,0 +1,22 @@
+{
+	"manifest_version": 2,
+	"name": "Document bookmarks",
+	"version": "1",
+
+	"description": "Store personal comments with bookmarks",
+	"icons": { "16": "icon.png"},
+
+	"browser_action": {
+		"default_icon": { "16": "icon.png"},
+		"default_title": "Document bookmarks",
+		"default_popup": "popup.html"
+	},
+		
+	"author": "Nityesh Agarwal",
+
+	"permissions": [
+		"tabs",
+		"bookmarks",
+		"https://developer.chrome.com/*"
+	]
+}
