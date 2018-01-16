@@ -17,6 +17,8 @@ $(function(){
 			else{
 				var ExtensionBookmarksNode= FolderNodes[0].children[2].children[i];
 				var currentURL;
+
+				$('#test_eg').text(ExtensionBookmarksNode.title);
 				chrome.tabs.query({active:true, currentWindow:true}, function(currentTabs){
 					currentURL= currentTabs[0].url;
 					//$('#test_eg').text(currentURL);
