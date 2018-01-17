@@ -1,3 +1,5 @@
+/*add the current URL to the destination folder when the 'Add to Bookmarks'
+button is pressed*/
 $(function(){
 	$('#add').click(function(){
 		var input= $('#folderPath').val().toUpperCase();
