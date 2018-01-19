@@ -18,5 +18,9 @@
 		"tabs",
 		"bookmarks",
 		"https://developer.chrome.com/*"
-	]
+	],
+
+	"chrome_url_overrides": {
+		"bookmarks": "myBookmarks.html"
+	}
 }
