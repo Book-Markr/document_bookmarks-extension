@@ -9,11 +9,11 @@ $(function(){
 function showChildren(parentNode, destination)
 {
 	var folder= $('<div>');
-	folder.attr('id', "folder");
+	folder.attr('class', "folder");
 	var folderList= $('<ul>');
 
 	var leaf= $('<div>');
-	leaf.attr('id', "last");
+	leaf.attr('class', "leaf");
 	var leafList= $('<ul>');
 
 	var i;
@@ -49,16 +49,18 @@ function getItemDetails(subjectNode)
  * >Comment-
  */
 {
+	//if node has children
 	if(subjectNode.children){
-		var item= $('<ul>');
 		var title= $('<li>');
-		title.append('<strong>' + subjectNode.title + '</strong>');
+		title.append('<h2>' + subjectNode.title + '</h2>');
 
-		item.append(title);
+		return title;
 	}
+	//else if leaf node
 	else{
 		var origTitle= subjectNode.title.split("||");
-		var item= $('<dl>');
+		var item= $('<li>');
+		var descList= $('<dl>');
 
 		var title= $('<dt>');
 		title.text(origTitle[0]);
@@ -77,10 +79,12 @@ function getItemDetails(subjectNode)
 			}
 		}
 
-		item.append(title);
-		item.append(url);
-		item.append(comment);
-	}
+		descList.append(title);
+		descList.append(url);
+		descList.append(comment);
 
-	return item;
+		item.append(descList);
+
+		return item;
+	}
 }
