@@ -1,61 +1,65 @@
 $(function(){
 	chrome.bookmarks.getTree(function(FolderNodes){
-		var MobileBookmarks= FolderNodes[0];
-		var destination= $('#folderL1');
-		showChildren(MobileBookmarks, destination);
+		var allBookmarks= FolderNodes[0];
+		var destination= $('#bookmarks');
+		addChildren(allBookmarks, destination);
 		$('details').find('summary').css('cursor', 'pointer');
 	});
 });
 
-function showChildren(parentNode, destination)
+function addChildren(parentNode, destination)
+/* Adds children of `parentNode` to the `destination`*/
 {
-	var folder= $('<div>');
-	folder.attr('class', "folder");
-	var folderList= $('<ul>');
-	folderList.css('list-style', 'none');
+	// make separate divs for folder nodes and leaf nodes
+	var $folder= $('<div>').attr('class', 'folder');
+	var $leaf= $('<div>').attr('class', 'leaf');
 
-	var leaf= $('<div>');
-	leaf.attr('class', "leaf");
-	var leafList= $('<ul>');
+	var $folderList= $('<ul>');
+	$folderList.css('list-style', 'none');
+	$folder.append($folderList);
+
+	var $leafList= $('<ul>');
+	$leaf.append($leafList);
 
 	var i;
 	for(i= 0; i< parentNode.children.length; ++i){
 		currentNode= parentNode.children[i];
 
-		//node has children
+		// if folder node, then add to folderList and recursively call its children
 		if(currentNode.children){
-			item= getItemDetails(currentNode);
-			folderList.append(item);
+			item= generateItemDetails(currentNode);
+			$folderList.append(item);
 
-			showChildren(currentNode, item.find('details'));
+			addChildren(currentNode, item.find('details'));
 		}
-		//node is leaf node
+		// if leaf node, then add to leafList
 		else{
-			item= getItemDetails(currentNode);
-			leafList.append(item);
+			item= generateItemDetails(currentNode);
+			$leafList.append(item);
 		}
 
-		folder.append(folderList);
-		leaf.append(leafList);
-		destination.append(folder);
-		destination.append(leaf);
+		destination.append($folder);
+		destination.append($leaf);
 	}
 }
 
-function getItemDetails(subjectNode)
-/* Returns the appropriate <li> */
+function generateItemDetails(subjectNode)
+/* Returns the appropriate <li> based on whether `subjectNode` is a
+ * folder or a leaf
+ */
 {
-	//if node has children
+	var $listItem= $('<li>');
+
+	//if folder node
 	if(subjectNode.children){
 		var title= $('<details>');
 		title.append('<summary>' + subjectNode.title + '</summary>');
 
-		return $('<li>').append(title);
+		$listItem.append(title);
 	}
 	//else if leaf node
 	else{
 		var origTitle= subjectNode.title.split("||");
-		var item= $('<li>');
 		var descList= $('<dl>');
 
 		var title= $('<dt>');
@@ -79,8 +83,7 @@ function getItemDetails(subjectNode)
 		descList.append(url);
 		descList.append(comment);
 
-		item.append(descList);
-
-		return item;
+		$listItem.append(descList);
 	}
+	return $listItem;
 }
