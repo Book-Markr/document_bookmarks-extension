@@ -1,6 +1,6 @@
 $(function(){
 	chrome.bookmarks.getTree(function(FolderNodes){
-		var MobileBookmarks= FolderNodes[0].children[2];
+		var MobileBookmarks= FolderNodes[0];
 		var destination= $('#folderL1');
 		showChildren(MobileBookmarks, destination);
 		$('details').find('summary').css('cursor', 'pointer');
