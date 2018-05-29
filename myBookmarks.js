@@ -3,6 +3,7 @@ $(function(){
 		var MobileBookmarks= FolderNodes[0].children[2];
 		var destination= $('#folderL1');
 		showChildren(MobileBookmarks, destination);
+		$('details').find('summary').css('cursor', 'pointer');
 	});
 });
 
@@ -11,6 +12,7 @@ function showChildren(parentNode, destination)
 	var folder= $('<div>');
 	folder.attr('class', "folder");
 	var folderList= $('<ul>');
+	folderList.css('list-style', 'none');
 
 	var leaf= $('<div>');
 	leaf.attr('class', "leaf");
@@ -22,15 +24,13 @@ function showChildren(parentNode, destination)
 
 		//node has children
 		if(currentNode.children){
-			
 			item= getItemDetails(currentNode);
 			folderList.append(item);
 
-			showChildren(currentNode, folderList);
+			showChildren(currentNode, item.find('details'));
 		}
 		//node is leaf node
 		else{
-			
 			item= getItemDetails(currentNode);
 			leafList.append(item);
 		}
@@ -43,18 +43,14 @@ function showChildren(parentNode, destination)
 }
 
 function getItemDetails(subjectNode)
-/* Returns item in the following format-
- * >Subject- 
- * >URL-
- * >Comment-
- */
+/* Returns the appropriate <li> */
 {
 	//if node has children
 	if(subjectNode.children){
-		var title= $('<li>');
-		title.append('<h2>' + subjectNode.title + '</h2>');
+		var title= $('<details>');
+		title.append('<summary>' + subjectNode.title + '</summary>');
 
-		return title;
+		return $('<li>').append(title);
 	}
 	//else if leaf node
 	else{
