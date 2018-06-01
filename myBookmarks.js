@@ -4,6 +4,20 @@ $(function(){
 		var destination= $('#bookmarks');
 		addChildren(allBookmarks, destination);
 		$('details').find('summary').css('cursor', 'pointer');
+
+		//edit option on clicking a bookmark title
+		$('dt').click(function(){
+			var $this = $(this);
+			$this.attr('contentEditable', 'true');
+			$(document).click(function(event){
+				if(!$(event.target).closest($this).length){
+					$this.attr('contentEditable', 'false');
+					id = $this.parent().closest('li').attr('data-id');
+					edited_title = $this.text();
+					update_bookmarks(id, edited_title);
+				}
+			});
+		});
 	});
 });
 
@@ -49,6 +63,7 @@ function generateItemDetails(subjectNode)
  */
 {
 	var $listItem= $('<li>');
+	$listItem.attr('data-id', subjectNode.id.toString());
 
 	//if folder node
 	if(subjectNode.children){
@@ -86,4 +101,15 @@ function generateItemDetails(subjectNode)
 		$listItem.append(descList);
 	}
 	return $listItem;
+}
+
+function update_bookmarks(id, edited_title)
+{
+	chrome.bookmarks.get(id, function(fetchedNode){
+		var completeTitle= fetchedNode[0].title.split('||');
+		if(completeTitle[0] != edited_title){
+			completeTitle[0]= edited_title;
+			chrome.bookmarks.update(id, {'title': completeTitle.join('||')});
+		}
+	});
 }
