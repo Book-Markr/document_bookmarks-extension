@@ -33,6 +33,7 @@ function addChildren(parentNode, destination)
 	$folder.append($folderList);
 
 	var $leafList= $('<ul>');
+	$leafList.css('list-style', 'none');
 	$leaf.append($leafList);
 
 	var i;
@@ -78,7 +79,7 @@ function generateItemDetails(subjectNode)
 		var descList= $('<dl>');
 
 		var title= $('<dt>');
-		title.text(origTitle[0]);
+		title.html('<input type="checkbox" class="checker">' + origTitle[0]);
 
 		var urlData= $('<a>');
 		urlData.attr('href', subjectNode.url);
