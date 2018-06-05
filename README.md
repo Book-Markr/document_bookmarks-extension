@@ -51,6 +51,8 @@ But don't worry, you can still install it and try it out easily:
 	4. **Star this repository if you find it useful :)**
 	5. Please raise an issue if you find something wrong or if you want to add some new feature. Also, it would be awesome if you could review the code, give me your opinion, tell me how to improve or better yet, contribute some code yourself!
 
+**You can contact me via email- nityeshagarwal@gmail.com**
+
 -----------------
 Also, here's the link to an article that I wrote describing my motivation for creating the extension-  
 [How to be a better programmer by automating the boring stuff](https://medium.freecodecamp.org/learn-how-to-be-a-better-programmer-by-automating-the-boring-stuff-74a67a568c50)
