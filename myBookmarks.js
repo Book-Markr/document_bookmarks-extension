@@ -18,6 +18,25 @@ $(function(){
 				}
 			});
 		});
+
+		//delete option
+		var onChecking = function(){
+			var checkedBoxes = $('.checker:checkbox:checked');//.eq(0).parent().closest('li').attr('data-id');
+			var checkedIDs = [];
+			var idx;
+			for(idx=0; idx<checkedBoxes.length; ++idx){
+				var bookmarkID = checkedBoxes.eq(idx).parent().closest('li').attr('data-id');
+				checkedIDs.push(bookmarkID);
+			}
+			$(document).keypress(function(e){
+				if(e.which == 100 || e.which == 68){
+					deleteBookmarks(checkedIDs);
+					location.reload(true);
+				}
+			});
+		};
+
+		$('input[type=checkbox]').on('click', onChecking);
 	});
 });
 
@@ -113,4 +132,12 @@ function update_bookmarks(id, edited_title)
 			chrome.bookmarks.update(id, {'title': completeTitle.join('||')});
 		}
 	});
+}
+
+function deleteBookmarks(bookmarkIDs)
+{
+	var i;
+	for(i=0; i<bookmarkIDs.length; ++i){
+		chrome.bookmarks.remove(bookmarkIDs[i]);
+	}
 }
