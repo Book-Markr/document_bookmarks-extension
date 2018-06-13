@@ -16,11 +16,24 @@
 
 	"permissions": [
 		"tabs",
+		"activeTab",
 		"bookmarks",
-		"https://developer.chrome.com/*"
+		"https://developer.chrome.com/*",
+		"contextMenus"
 	],
 
 	"chrome_url_overrides": {
 		"bookmarks": "myBookmarks.html"
+	},
+
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["markr.js", "jquery-3.2.1.min.js"]
+		}
+	],
+
+	"background": {
+		"scripts": ["backgroundContextMenus.js"]
 	}
 }
