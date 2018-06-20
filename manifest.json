@@ -19,7 +19,8 @@
 		"activeTab",
 		"bookmarks",
 		"https://developer.chrome.com/*",
-		"contextMenus"
+		"contextMenus",
+		"storage"
 	],
 
 	"chrome_url_overrides": {
