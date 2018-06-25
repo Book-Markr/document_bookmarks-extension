@@ -20,7 +20,8 @@ function ensureSendMessage(tabId, message, callback){
 function onClickHandler(info, tab) 
 {
 	ensureSendMessage(tab.id, {changeParameter: info.menuItemId, 
-							   currentState: info.checked});
+							   currentState: info.checked,
+							   url: tab.url});
 };
 
 chrome.contextMenus.onClicked.addListener(onClickHandler);
